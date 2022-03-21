@@ -11,7 +11,13 @@ public class DragonCave {
         Scanner s = new Scanner(System.in);
 
         System.out.println();
-        String userInput = s.nextLine();
+        String userInput = "";
+        try {
+            userInput = s.nextLine();
+        }catch(Exception e){
+            System.out.println("User input failed");
+            return;
+        }
         System.out.println();
 
         if(userInput.length() == 1){
