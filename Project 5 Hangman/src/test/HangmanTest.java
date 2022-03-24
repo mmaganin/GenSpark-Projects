@@ -22,6 +22,7 @@ class HangmanTest {
         hangman = new Hangman("testWord");
     }
 
+    @DisplayName("Test generateRandWord")
     @Test
     void generateRandWord() {
         String secretWord1 = "";
@@ -39,6 +40,7 @@ class HangmanTest {
                 "(test uses 20 words while text file uses 1000))");
     }
 
+    @DisplayName("Test printRoundStart")
     @Test
     void printRoundStart() {
         String secretWord = hangman.getSecretWord();
@@ -52,6 +54,7 @@ class HangmanTest {
         assertEquals(true, hangman.printRoundStart(), "Failed printRoundStart (should have guessed all characters and won))");
     }
 
+    @DisplayName("Test readUserInput")
     @Test
     void readUserInput() {
         String userInput = hangman.readUserInput(scanner);
@@ -60,6 +63,7 @@ class HangmanTest {
         scanner = new Scanner(new ByteArrayInputStream("a\nt\nt\no\ne\ns\nw\nr\nd".getBytes()));
     }
 
+    @DisplayName("Test checkGuess")
     @Test
     void checkGuess() {
         assertTrue(hangman.checkGuess(scanner), "readUserInput Failed (should be new guess->true)"); //new guess 'a' yields true
@@ -71,17 +75,13 @@ class HangmanTest {
         scanner = new Scanner(new ByteArrayInputStream("a\nt\nt\no\ne\ns\nw\nr\nd".getBytes()));
     }
 
+    @DisplayName("Test checkPlayAgain")
     @Test
     void checkPlayAgain() {
         Scanner s = new Scanner(new ByteArrayInputStream("a\nyes\nno".getBytes()));
         assertTrue(hangman.checkPlayAgain(s), "checkPlayAgain Failed (should ret true, user said yes after invalid input)");
         assertFalse(hangman.checkPlayAgain(s), "checkPlayAgain Failed (should ret true, user said no)");
         s.close();
-    }
-
-
-    @AfterEach
-    void tearDown() {
     }
 
     @AfterAll
