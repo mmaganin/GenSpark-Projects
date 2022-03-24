@@ -12,12 +12,53 @@ public class Hangman {
     private String currMan;
     private final String randomWordsLocation = "C:\\GenSpark-Projects\\Project 5 Hangman\\src\\hangmanWords.txt";
 
+    public String getSecretWord() {
+        return secretWord;
+    }
+
+    public void setSecretWord(String secretWord) {
+        this.secretWord = secretWord;
+    }
+
+    public HashSet<Character> getCharGuesses() {
+        return charGuesses;
+    }
+
+    public void setCharGuesses(HashSet<Character> charGuesses) {
+        this.charGuesses = charGuesses;
+    }
+
+    public ArrayList<Character> getMissedLetters() {
+        return missedLetters;
+    }
+
+    public void setMissedLetters(ArrayList<Character> missedLetters) {
+        this.missedLetters = missedLetters;
+    }
+
+    public int getNumWrongGuesses() {
+        return numWrongGuesses;
+    }
+
+    public void setNumWrongGuesses(int numWrongGuesses) {
+        this.numWrongGuesses = numWrongGuesses;
+    }
+
+    public String getCurrMan() {
+        return currMan;
+    }
+
+    public String getRandomWordsLocation() {
+        return randomWordsLocation;
+    }
+
     public Hangman(){
         try{
             Scanner s = new Scanner(new File(randomWordsLocation));
-            secretWord = generateRandWord(s);
+            secretWord = generateRandWord(s, 1000);
             s.close();
         }catch(Exception e){
+            System.out.println("Exception when generating random word from file");
             System.exit(1);
         }
 
@@ -45,17 +86,16 @@ public class Hangman {
                 "   ===";
     }
     //returns the hangman random word from a text file of 1000 words
-    public String generateRandWord(Scanner s){
-        int max = 1000;
+    public String generateRandWord(Scanner s, int numWords){
+        int max = numWords;
         int min = 1;
         int randNum = (int) (Math.random() * (max - min + 1) + min); //generates random number
-
         String word = "";
         for (int i = 0; i < randNum; i++) {
             word = s.nextLine();
         }
 
-        return word;
+        return word.toLowerCase();
     }
     //prints the game for each letter guess, returns true if player has won
     public boolean printRoundStart(){
@@ -182,9 +222,10 @@ public class Hangman {
                 "   ===";
         try{
             Scanner s2 = new Scanner(new File(randomWordsLocation));
-            secretWord = generateRandWord(s2);
+            secretWord = generateRandWord(s2, 1000);
             s2.close();
         }catch(Exception e){
+            System.out.println("Exception when generating random word from file");
             System.exit(1);
         }
     }
