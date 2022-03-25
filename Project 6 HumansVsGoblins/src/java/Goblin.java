@@ -1,24 +1,23 @@
-public class Goblin extends Character{
-    private String[] drops;
+public class Goblin extends GameCharacter{
+    private String drop;
     public static final String[] possibleDrops =
             {"Bag of Coins", "Goblin Leggings", "Goblin Chestplate", "Goblin Boots", "Goblin Helmet", "Goblin Egg"};
 
-    public String[] getDrops() {
-        return drops;
+    public String getDrop() {
+        return drop;
     }
 
-    public void setDrops(String[] drops) {
-        this.drops = drops;
+    public void setDrop(String drop) {
+        this.drop = drop;
     }
 
     public Goblin(){
+        //generates 2 random goblin drops from array of possible items
         int max = 5;
         int min = 0;
-        int randNum = (int) (Math.random() * (max - min + 1) + min); //generates random goblin drop from array of possible items
-        drops = new String[2];
-        drops[0] = possibleDrops[randNum];
-        randNum = (int) (Math.random() * (max - min + 1) + min);
-        drops[1] = possibleDrops[randNum];
+        int randNum = (int) (Math.random() * (max - min + 1) + min);
+        drop = possibleDrops[randNum];
+
 
         this.setPositionOnLand(new int[2]);
         this.setMapMarker('G');
@@ -30,7 +29,7 @@ public class Goblin extends Character{
     public String toString(){
         return "Goblin: \n" +
                 "Health: " + this.getHealth() + ", Damage: " + this.getDamage() + "\n" +
-                "Drops: " + drops.toString() + "\n" +
+                "Drop: " + drop.toString() + "\n" +
                 "Position: " + (this.getPositionOnLand().length > 0 ? this.getPositionOnLand().toString() : "Not on the board yet.");
     }
 }

@@ -65,6 +65,46 @@ public class Land {
 
         return  indexOnGrid;
     }
+    //calculates the new {x, y} position after a move
+    public static int[] newPosAfterMove(int direction, int[] position){
+        switch(direction){
+            case moveNorth:
+                if(position[1] > 1){
+                    position[1]--;
+                }
+                break;
+            case moveSouth:
+                if(position[1] < 10){
+                    position[1]++;
+                }
+                break;
+            case moveSE:
+                if(position[0] < 10 && position[1] < 10){
+                    position[1]++;
+                    position[0]++;
+                }
+                break;
+            case moveSW:
+                if(position[0] > 1 && position[1] < 10){
+                    position[1]++;
+                    position[0]--;
+                }
+                break;
+            case moveNE:
+                if(position[0] < 10 && position[1] > 1){
+                    position[1]--;
+                    position[0]++;
+                }
+                break;
+            case moveNW:
+                if(position[0] > 1 && position[1] > 1){
+                    position[1]--;
+                    position[0]--;
+                }
+                break;
+        }
+        return position;
+    }
 
     public int[] randomFreePosition(String currLandGrid){
         int max = 10;

@@ -1,10 +1,10 @@
-public class Character {
+public class GameCharacter {
     private int[] positionOnLand;       //arr of length 2 for coordinates on grid based on top left (10x10)
     private int health;
     private int damage;
     private char mapMarker;             //Goblin 'G' or Human 'H' on game's land grid
 
-    public Character(){
+    public GameCharacter(){
         positionOnLand = new int[2];
         health = 0;
         damage = 0;

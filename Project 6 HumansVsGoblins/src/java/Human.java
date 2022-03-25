@@ -1,6 +1,6 @@
 import java.util.HashMap;
 
-public class Human extends Character{
+public class Human extends GameCharacter{
     private HashMap<String, Integer> inventory;
 
     public HashMap<String, Integer> getInventory() {
@@ -19,7 +19,6 @@ public class Human extends Character{
         this.setDamage(5);
         this.setHealth(30);
     }
-
 
     @Override
     public String toString(){
