@@ -19,7 +19,7 @@ public class Goblin extends GameCharacter{
         drop = possibleDrops[randNum];
 
 
-        this.setPositionOnLand(new int[2]);
+        this.setPositionOnLand(new GridCoords(0,0));
         this.setMapMarker('G');
         this.setDamage(5);
         this.setHealth(10);
@@ -30,6 +30,14 @@ public class Goblin extends GameCharacter{
         return "Goblin: \n" +
                 "Health: " + this.getHealth() + ", Damage: " + this.getDamage() + "\n" +
                 "Drop: " + drop.toString() + "\n" +
-                "Position: " + (this.getPositionOnLand().length > 0 ? this.getPositionOnLand().toString() : "Not on the board yet.");
+                "Position: " + (this.getPositionOnLand().getxCoord() == 0 ? this.getPositionOnLand().toString() : "Not on the board yet.");
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return (obj instanceof Goblin) && ((Goblin) obj).getDrop().equals(drop)
+                && ((Goblin) obj).getHealth() == getHealth()
+                && ((Goblin) obj).getDamage() == getDamage()
+                && ((Goblin) obj).getPositionOnLand().equals(getPositionOnLand());
     }
 }

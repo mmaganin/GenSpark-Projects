@@ -14,7 +14,7 @@ public class Human extends GameCharacter{
     public Human(){
         this.inventory = new HashMap<>();
 
-        this.setPositionOnLand(new int[2]);
+        this.setPositionOnLand(new GridCoords(0,0));
         this.setMapMarker('H');
         this.setDamage(5);
         this.setHealth(30);
@@ -24,6 +24,14 @@ public class Human extends GameCharacter{
     public String toString(){
         return "Human: \n" +
                 "Health: " + this.getHealth() + ", Damage: " + this.getDamage() + "\n" +
-                "Position: " + (this.getPositionOnLand().length > 0 ? this.getPositionOnLand().toString() : "Not on the board yet.");
+                "Position: " + (this.getPositionOnLand().getxCoord() == 0 ? this.getPositionOnLand().toString() : "Not on the board yet.");
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return (obj instanceof Human) && ((Human) obj).getInventory().equals(inventory)
+                && ((Human) obj).getHealth() == getHealth()
+                && ((Human) obj).getDamage() == getDamage()
+                && ((Human) obj).getPositionOnLand().equals(getPositionOnLand());
     }
 }

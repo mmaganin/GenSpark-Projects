@@ -4,20 +4,22 @@ public class Land {
     //indices for corners of grid
     public static final int cornerTLindex = 23;
     public static final int cornerTRindex = 41;
-    public static final int cornerBLindex = 221;
-    public static final int cornerBRindex = 239;
+    public static final int cornerBLindex = 419;
+    public static final int cornerBRindex = 437;
 
     //values to add to position to move one square different directions
     public static final int placeCharacter = 0;
     public static final int moveNorth = -44;
     public static final int moveSouth = 44;
+    public static final int moveEast = 2;
+    public static final int moveWest = -2;
     public static final int moveSE = 46;
     public static final int moveSW = 42;
     public static final int moveNE = -42;
     public static final int moveNW = -46;
 
     //10 x 10 game world grid
-    private static final String initLandGrid = "" +
+    public static final String initLandGrid = "" +
             "---------------------\n" +
             "| | | | | | | | | | |\n" +
             "---------------------\n" +
@@ -53,72 +55,80 @@ public class Land {
     }
 
     //converts an {x, y} position to an index in the grid String ({0,0} at top left)
-    public static int posOnLandToIndex(int[] positionOnLand){
-        if(positionOnLand.length != 2 ||
-                positionOnLand[0] < 1 || positionOnLand[0] > 10 ||
-                positionOnLand[1] < 1 || positionOnLand[1] > 10){
+    public static int posOnLandToIndex(GridCoords positionOnLand){
+        if(positionOnLand.getxCoord() < 1 || positionOnLand.getxCoord() > 10 ||
+                positionOnLand.getyCoord() < 1 || positionOnLand.getyCoord() > 10){
             return 0;
         }
         int indexOnGrid = 0;
-        indexOnGrid += (positionOnLand[0] * 2) - 1;             //converting x axis
-        indexOnGrid += ((positionOnLand[1] * 2) - 1) * 22;      //converting y axis
+        indexOnGrid += (positionOnLand.getxCoord() * 2) - 1;             //converting x axis
+        indexOnGrid += ((positionOnLand.getyCoord() * 2) - 1) * 22;      //converting y axis
 
-        return  indexOnGrid;
+        return indexOnGrid;
     }
     //calculates the new {x, y} position after a move
-    public static int[] newPosAfterMove(int direction, int[] position){
+    public static GridCoords newPosAfterMove(int direction, GridCoords position){
+        GridCoords newPosition = position;
         switch(direction){
             case moveNorth:
-                if(position[1] > 1){
-                    position[1]--;
+                if(position.getyCoord() > 1){
+                    newPosition = new GridCoords(position.getxCoord(), position.getyCoord() - 1);
                 }
                 break;
             case moveSouth:
-                if(position[1] < 10){
-                    position[1]++;
+                if(position.getyCoord() < 10){
+                    newPosition = new GridCoords(position.getxCoord(), position.getyCoord() + 1);
+                }
+                break;
+            case moveEast:
+                if(position.getxCoord() < 10){
+                    newPosition = new GridCoords(position.getxCoord() + 1, position.getyCoord());
+                }
+                break;
+            case moveWest:
+                if(position.getxCoord() > 1){
+                    newPosition = new GridCoords(position.getxCoord() - 1, position.getyCoord());
                 }
                 break;
             case moveSE:
-                if(position[0] < 10 && position[1] < 10){
-                    position[1]++;
-                    position[0]++;
+                if(position.getxCoord() < 10 && position.getyCoord() < 10){
+                    newPosition = new GridCoords(position.getxCoord() + 1, position.getyCoord() + 1);
                 }
                 break;
             case moveSW:
-                if(position[0] > 1 && position[1] < 10){
-                    position[1]++;
-                    position[0]--;
+                if(position.getxCoord() > 1 && position.getyCoord() < 10){
+                    newPosition = new GridCoords(position.getxCoord() - 1, position.getyCoord() + 1);
                 }
                 break;
             case moveNE:
-                if(position[0] < 10 && position[1] > 1){
-                    position[1]--;
-                    position[0]++;
+                if(position.getxCoord() < 10 && position.getyCoord() > 1){
+                    newPosition = new GridCoords(position.getxCoord() + 1, position.getyCoord() - 1);
                 }
                 break;
             case moveNW:
-                if(position[0] > 1 && position[1] > 1){
-                    position[1]--;
-                    position[0]--;
+                if(position.getxCoord() > 1 && position.getyCoord() > 1){
+                    newPosition = new GridCoords(position.getxCoord() - 1, position.getyCoord() - 1);
                 }
                 break;
         }
-        return position;
+        return newPosition;
     }
 
-    public int[] randomFreePosition(String currLandGrid){
+    public GridCoords randomFreePosition(String currLandGrid){
         int max = 10;
         int min = 1;
 
-        int[] position = new int[2];
-        position[0] = (int) (Math.random() * (max - min + 1) + min); //generates x position on grid
-        position[1] = (int) (Math.random() * (max - min + 1) + min); //generates y position on grid
-        while(currLandGrid.charAt(Land.posOnLandToIndex(position)) != ' '){
-            position[0] = (int) (Math.random() * (max - min + 1) + min);
-            position[1] = (int) (Math.random() * (max - min + 1) + min);
+        int xCoord;
+        int yCoord;
+
+        xCoord = (int) (Math.random() * (max - min + 1) + min); //generates x position on grid
+        yCoord = (int) (Math.random() * (max - min + 1) + min); //generates y position on grid
+        while(currLandGrid.charAt(Land.posOnLandToIndex(new GridCoords(xCoord, yCoord))) != ' '){
+            xCoord = (int) (Math.random() * (max - min + 1) + min);
+            yCoord = (int) (Math.random() * (max - min + 1) + min);
         }
 
-        return position;
+        return new GridCoords(xCoord, yCoord);
     }
 
     @Override
