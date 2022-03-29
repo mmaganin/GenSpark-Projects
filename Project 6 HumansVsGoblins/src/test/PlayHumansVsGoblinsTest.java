@@ -2,6 +2,7 @@ import org.junit.jupiter.api.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -45,14 +46,17 @@ class PlayHumansVsGoblinsTest {
 
         assertArrayEquals(samplePopulatedGrid.toCharArray(), playHumansVsGoblins.generateRandomChest(String.valueOf(gridAsArr)).toCharArray(), "generateRandomChest Failed");
         assertTrue(playHumansVsGoblins.chests.containsKey(checkHashmap), "generateRandomChest Failed (not in hashmap");
+    }
 
+    @DisplayName("Test generateRandomChest2")
+    @Test
+    void generateRandomChest2() {
         //Tested at second location
-        gridAsArr = samplePopulatedGrid.toCharArray();
-        gridAsArr[Land.posOnLandToIndex(new GridCoords(4, 5))] = 'X';
+        char[] gridAsArr = samplePopulatedGrid.toCharArray();
         gridAsArr[Land.posOnLandToIndex(new GridCoords(8, 8))] = ' ';
-        checkHashmap = new GridCoords(8, 8);
+        GridCoords checkHashmap = new GridCoords(8, 8);
         assertArrayEquals(samplePopulatedGrid.toCharArray(), playHumansVsGoblins.generateRandomChest(String.valueOf(gridAsArr)).toCharArray(), "generateRandomChest Failed");
-        assertTrue(playHumansVsGoblins.chests.containsKey(checkHashmap), "generateRandomChest Failed (not in hashmap");
+        assertTrue(playHumansVsGoblins.chests.containsKey(checkHashmap), "generateRandomChest2 Failed (not in hashmap");
     }
 
     @DisplayName("Test changeGridAfterMove")
@@ -66,31 +70,42 @@ class PlayHumansVsGoblinsTest {
         //checks that goblins cant collide with chests
         assertArrayEquals(samplePopulatedGrid.toCharArray(), playHumansVsGoblins.changeGridAfterMove(newGrid, Land.moveSouth, playHumansVsGoblins.characters.get(checkHashmap)).toCharArray(), "placeCharacterRandom Failed");
         assertTrue(playHumansVsGoblins.characters.containsKey(checkHashmap), "placeCharacterRandom Failed (not in hashmap");
-
-        //checks that characters cant move to spaces with characters of same object type
-        gridAsArr[Land.posOnLandToIndex(checkHashmap)] = 'G';
-        checkHashmap = new GridCoords(3, 4);
-        gridAsArr[Land.posOnLandToIndex(checkHashmap)] = ' ';
-        newGrid = playHumansVsGoblins.placeCharacter(String.valueOf(gridAsArr), new Goblin(), checkHashmap);
-        assertArrayEquals(samplePopulatedGrid.toCharArray(), playHumansVsGoblins.changeGridAfterMove(newGrid, Land.moveEast, playHumansVsGoblins.characters.get(checkHashmap)).toCharArray(), "placeCharacterRandom Failed");
-        assertTrue(playHumansVsGoblins.characters.containsKey(checkHashmap), "placeCharacterRandom Failed (not in hashmap");
-
-        //tests no collision, successful move
-        playHumansVsGoblins.characters.clear();
-        gridAsArr = Land.initLandGrid.toCharArray();
-        checkHashmap = new GridCoords(1,1);
-        newGrid = playHumansVsGoblins.placeCharacter(Land.initLandGrid, new Goblin(), checkHashmap);
-        gridAsArr[Land.posOnLandToIndex(new GridCoords(1,2))] = 'G';
-        gridAsArr[Land.posOnLandToIndex(new GridCoords(1,1))] = ' ';
-
-        assertArrayEquals(gridAsArr, playHumansVsGoblins.changeGridAfterMove(newGrid, Land.moveSouth, playHumansVsGoblins.characters.get(checkHashmap)).toCharArray(), "placeCharacterRandom Failed");
-        assertTrue(playHumansVsGoblins.characters.containsKey(new GridCoords(1,2)), "placeCharacterRandom Failed (not in hashmap");
-        assertFalse(playHumansVsGoblins.characters.containsKey(new GridCoords(1,1)), "placeCharacterRandom Failed (not in hashmap");
     }
 
-    @DisplayName("Test handleCollision")
+    @DisplayName("Test changeGridAfterMove2")
     @Test
-    void handleCollision() {
+    void changeGridAfterMove2() {
+        GridCoords checkHashmap = new GridCoords(4, 4);
+        char[] gridAsArr = samplePopulatedGrid.toCharArray();
+
+        gridAsArr[Land.posOnLandToIndex(checkHashmap)] = ' ';
+        checkHashmap = new GridCoords(3, 4);
+        gridAsArr[Land.posOnLandToIndex(checkHashmap)] = ' ';
+
+        String newGrid = playHumansVsGoblins.placeCharacter(String.valueOf(gridAsArr), new Goblin(), new GridCoords(4, 4));
+        newGrid = playHumansVsGoblins.placeCharacter(newGrid, new Goblin(), checkHashmap);
+
+        //checks that characters cant move to spaces with characters of same object type
+        assertArrayEquals(samplePopulatedGrid.toCharArray(), playHumansVsGoblins.changeGridAfterMove(newGrid, Land.moveEast, playHumansVsGoblins.characters.get(checkHashmap)).toCharArray(), "placeCharacterRandom Failed");
+        assertTrue(playHumansVsGoblins.characters.containsKey(checkHashmap), "placeCharacterRandom Failed (not in hashmap");
+    }
+
+    @DisplayName("Test changeGridAfterMove3")
+    @Test
+    void changeGridAfterMove3() {
+        GridCoords checkHashmap = new GridCoords(1, 1);
+        char[] gridAsArr = samplePopulatedGrid.toCharArray();
+
+        gridAsArr[Land.posOnLandToIndex(checkHashmap)] = ' ';
+        checkHashmap = new GridCoords(1, 2);
+        gridAsArr[Land.posOnLandToIndex(checkHashmap)] = ' ';
+
+        String newGrid = playHumansVsGoblins.placeCharacter(String.valueOf(gridAsArr), new Goblin(), new GridCoords(1, 1));
+
+        gridAsArr[Land.posOnLandToIndex(checkHashmap)] = 'G';
+        assertArrayEquals(gridAsArr, playHumansVsGoblins.changeGridAfterMove(newGrid, Land.moveSouth, playHumansVsGoblins.characters.get(new GridCoords(1, 1))).toCharArray(), "placeCharacterRandom Failed");
+        assertTrue(playHumansVsGoblins.characters.containsKey(checkHashmap), "placeCharacterRandom Failed (not in hashmap");
+        assertFalse(playHumansVsGoblins.characters.containsKey(new GridCoords(1,1)), "placeCharacterRandom Failed (not in hashmap");
     }
 
     @DisplayName("Test alterPlayerStats")
@@ -142,5 +157,105 @@ class PlayHumansVsGoblinsTest {
         gridAsArr[Land.posOnLandToIndex(checkHashmap)] = ' ';
         assertArrayEquals(samplePopulatedGrid.toCharArray(), playHumansVsGoblins.placeCharacterRandom(String.valueOf(gridAsArr), new Human()).toCharArray(), "placeCharacterRandom Failed");
         assertTrue(playHumansVsGoblins.characters.containsKey(checkHashmap), "placeCharacterRandom Failed (not in hashmap");
+    }
+
+    @DisplayName("Test openChest")
+    @Test
+    void openChest() {
+        //checks that chest is replaced with human, human stats changed from item, human has item in inventory
+
+        char[] gridAsArr = samplePopulatedGrid.toCharArray();
+        GridCoords gridCoords = new GridCoords(8, 8);
+        gridAsArr[Land.posOnLandToIndex(gridCoords)] = ' ';
+        String newGrid = playHumansVsGoblins.generateRandomChest(String.valueOf(gridAsArr));
+        gridAsArr[Land.posOnLandToIndex(gridCoords)] = 'H';
+        Human human = new Human();
+        Human defaultHuman = new Human();
+        human.setPositionOnLand(new GridCoords(7, 8));
+
+        assertArrayEquals(gridAsArr, playHumansVsGoblins.openChest(human, gridCoords, newGrid).toCharArray(), "openChest Failed");
+        human = (Human)playHumansVsGoblins.characters.get(gridCoords);
+        assertTrue(!human.getInventory().isEmpty() && (human.getHealth() != defaultHuman.getHealth() || human.getDamage() != defaultHuman.getDamage()));
+    }
+
+    //tests that outputs the correct, surviving character with altered health stat (can fail when working but unlikely)
+    @DisplayName("Test handleFindSurvivor")
+    @Test
+    void handleFindSurvivor() {
+        Goblin goblin = new Goblin();
+        Human human = new Human();
+        Human testHuman = new Human();
+
+        human.setHealth(1000);
+        playHumansVsGoblins.handleFindSurvivor(goblin, human);
+        testHuman.setHealth(human.getHealth());
+
+        assertEquals(testHuman, playHumansVsGoblins.handleFindSurvivor(goblin, human), "handleFindSurvivor Failed");
+        assertTrue(1000 > testHuman.getHealth());
+    }
+
+    @DisplayName("Test printPlayerStatus")
+    @Test
+    void printPlayerStatus() {
+        Human human = new Human();
+        HashMap<String, Integer> inventory = new HashMap<>();
+        String testDrop = "TestItem";
+        inventory.put(testDrop, 1);
+
+        human.setHealth(100);
+        human.setDamage(150);
+        human.setInventory(inventory);
+
+        String expected = "You now have " + 100 + " health and " + 150 + " maximum damage.\n" +
+                "Your inventory now contains: " + 1 + " " + testDrop;
+        String actual = playHumansVsGoblins.printPlayerStatus(human);
+        System.out.println(actual);
+
+        assertEquals(expected, actual, "printPlayerStatus Failed");
+    }
+
+    //tests combat outcome if goblin runs into human. human has stats changed, inventory is changed, and chest spawns after combat (can fail when working but unlikely)
+    @DisplayName("Test handleCombatOutcome")
+    @Test
+    void handleCombatOutcome() {
+        Human human = new Human();
+        Goblin goblin = new Goblin();
+        char[] gridAsArr = samplePopulatedGrid.toCharArray();
+        gridAsArr[Land.posOnLandToIndex(new GridCoords(1,1))] = ' ';
+        gridAsArr[Land.posOnLandToIndex(new GridCoords(1,2))] = ' ';
+
+        human.setHealth(200);
+        human.setDamage(5);
+        String newGrid = playHumansVsGoblins.placeCharacter(String.valueOf(gridAsArr), human, new GridCoords(1,1));
+        String actual = playHumansVsGoblins.handleCombatOutcome(goblin, new GridCoords(1,1), newGrid);
+
+        gridAsArr[Land.posOnLandToIndex(new GridCoords(1,2))] = 'X';
+        gridAsArr[Land.posOnLandToIndex(new GridCoords(1,1))] = 'H';
+
+        assertEquals(String.valueOf(gridAsArr), actual, "handleCombatOutcome Failed");
+        human = (Human)playHumansVsGoblins.characters.get(new GridCoords(1,1));
+        assertTrue(!human.getInventory().isEmpty() && (human.getHealth() != 100 || human.getDamage() != 5), "handleCombatOutcome Failed");
+    }
+
+    //Tests collision if human runs into goblin
+    @DisplayName("Test handleCollision")
+    @Test
+    void handleCollision() {
+        Human human = new Human();
+        Goblin goblin = new Goblin();
+        char[] gridAsArr = samplePopulatedGrid.toCharArray();
+        gridAsArr[Land.posOnLandToIndex(new GridCoords(1,1))] = ' ';
+        gridAsArr[Land.posOnLandToIndex(new GridCoords(1,2))] = ' ';
+
+        human.setHealth(200);
+        String newGrid = playHumansVsGoblins.placeCharacter(String.valueOf(gridAsArr), goblin, new GridCoords(1,1));
+        newGrid = playHumansVsGoblins.handleCollision(human, new GridCoords(1,1), newGrid);
+
+        gridAsArr[Land.posOnLandToIndex(new GridCoords(1,2))] = 'X';
+        gridAsArr[Land.posOnLandToIndex(new GridCoords(1,1))] = 'H';
+
+        assertEquals(String.valueOf(gridAsArr), newGrid, "handleCombatOutcome Failed");
+        human = (Human)playHumansVsGoblins.characters.get(new GridCoords(1,1));
+        assertTrue(!human.getInventory().isEmpty() && (human.getHealth() != 100 || human.getDamage() != 5), "handleCombatOutcome Failed");
     }
 }

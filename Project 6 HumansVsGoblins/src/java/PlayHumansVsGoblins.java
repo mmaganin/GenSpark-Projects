@@ -64,6 +64,113 @@ public class PlayHumansVsGoblins {
         return String.valueOf(gridAsArr);
     }
 
+    public String openChest(Human human, GridCoords newPosition, String currLandGrid){
+        char[] gridAsArr = currLandGrid.toCharArray();
+        human.setPositionOnLand(newPosition);
+        HashMap<String, Integer> inventory;
+        String itemToInv = chests.get(newPosition);
+        chests.remove(newPosition);
+
+        gridAsArr[Land.posOnLandToIndex(newPosition)] = 'H';
+        inventory = human.getInventory();
+        if(inventory.containsKey(itemToInv)){
+            inventory.replace(itemToInv, inventory.get(itemToInv) + 1);
+        } else {
+            inventory.put(itemToInv, 1);
+        }
+        human.setInventory(inventory);
+        characters.put(newPosition, alterPlayerStats(itemToInv, human));
+
+        System.out.println("You have just picked up " + itemToInv + " from a chest!");
+
+        return String.valueOf(gridAsArr);
+    }
+
+    public String printPlayerStatus(Human human){
+        HashMap<String, Integer> inventory = human.getInventory();
+        StringBuilder str = new StringBuilder();
+        String output;
+
+        str.append("You now have " + human.getHealth() + " health and " + human.getDamage() + " maximum damage.\n");
+        output = str.toString();
+        if(!inventory.isEmpty()) {
+            str.append("Your inventory now contains: ");
+            for (var invItem : human.getInventory().entrySet()) {
+                str.append(invItem.getValue() + " " + invItem.getKey() + ", ");
+            }
+            output = str.substring(0, str.length() - 2);
+        }
+
+        return output;
+    }
+
+    public GameCharacter handleFindSurvivor(GameCharacter character, GameCharacter characterAtIndex){
+        //handles human/goblin battle with randomized attack damage (maximum damage is their stored damage)
+        int max;
+        int min = 0;
+        int randDamage;
+        while(character.getHealth() > 0 && characterAtIndex.getHealth() > 0){
+            max = character.getDamage();
+            randDamage = (int) (Math.random() * (max - min + 1) + min);
+            characterAtIndex.setHealth(characterAtIndex.getHealth() - randDamage);
+
+            max = characterAtIndex.getDamage();
+            randDamage = (int) (Math.random() * (max - min + 1) + min);
+            character.setHealth(character.getHealth() - randDamage);
+        }
+        System.out.println("The player and a Goblin just battled at " + characterAtIndex.getPositionOnLand());
+
+        if(character.getHealth() <= 0 && characterAtIndex.getHealth() <= 0){
+            return null;
+        } else if(character.getHealth() <= 0){
+            return characterAtIndex;
+        } else {
+            return character;
+        }
+    }
+
+    public String handleCombatOutcome(GameCharacter character, GridCoords newPosition, String currLandGrid){
+        GameCharacter characterAtIndex = characters.get(newPosition);
+        String itemToInv;
+        HashMap<String, Integer> inventory;
+        Human human;
+        char[] gridAsArr = currLandGrid.toCharArray();
+
+        GameCharacter survivor = handleFindSurvivor(character, characterAtIndex);
+        if(survivor == null){
+            return currLandGrid;
+        }
+
+        //handles if human dies -> lose the game
+        if(survivor instanceof Goblin){
+            System.out.println("The player has died and you have lost! Game Over!");
+            return "";
+            //handles if dying goblin is moving
+        } else if(survivor.equals(characterAtIndex)){
+            itemToInv = ((Goblin)character).getDrop();
+            human = (Human)alterPlayerStats(itemToInv, characterAtIndex);
+            //handles if dying goblin is at the conflicted position
+        } else {
+            itemToInv = ((Goblin)characterAtIndex).getDrop();
+            character.setPositionOnLand(newPosition);
+            human = (Human)alterPlayerStats(itemToInv, character);
+            gridAsArr[Land.posOnLandToIndex(newPosition)] = 'H';
+        }
+
+        //adds necessary items to player inventory, updates characters hashmap, spawns random chest
+        inventory = human.getInventory();
+        if(inventory.containsKey(itemToInv)){
+            inventory.replace(itemToInv, inventory.get(itemToInv) + 1);
+        } else {
+            inventory.put(itemToInv, 1);
+        }
+        human.setInventory(inventory);
+        characters.replace(newPosition, human);
+
+        System.out.println("The Goblin died and a random chest has spawned!");
+        return generateRandomChest(String.valueOf(gridAsArr));
+    }
+
 
     public String handleCollision(GameCharacter character, GridCoords newPosition, String currLandGrid){
         char[] gridAsArr = currLandGrid.toCharArray();
@@ -71,82 +178,29 @@ public class PlayHumansVsGoblins {
         String itemToInv;
         HashMap<String, Integer> inventory;
         String newGrid;
+        GameCharacter characterAtIndex = characters.get(newPosition);
+
+        if(character instanceof Human){
+            human = (Human)character;
+        } else if(characters.containsKey(newPosition)){
+            human = (Human)characters.get(newPosition);
+        } else{
+            human = new Human();
+        }
 
         //handles if human collides with chest
         if(chests.containsKey(newPosition) && character instanceof Human){
-            character.setPositionOnLand(newPosition);
             human = (Human)character;
-            itemToInv = chests.get(newPosition);
-            chests.remove(newPosition);
+            newGrid = openChest(human, newPosition, currLandGrid);
 
-            gridAsArr[Land.posOnLandToIndex(newPosition)] = 'H';
-            inventory = human.getInventory();
-            if(inventory.containsKey(itemToInv)){
-                inventory.replace(itemToInv, inventory.get(itemToInv) + 1);
-            } else {
-                inventory.put(itemToInv, 1);
-            }
-            human.setInventory(inventory);
-            characters.put(newPosition, alterPlayerStats(itemToInv, human));
-
-            System.out.println("You have just picked up " + itemToInv + " from a chest!");
-
-            newGrid = String.valueOf(gridAsArr);
             //handles if goblin collides with human or vice versa
         } else{
-            GameCharacter characterAtIndex = characters.get(newPosition);
-            //handles human/goblin battle with randomized attack damage (maximum damage is their stored damage)
-            int max;
-            int min = 0;
-            int randDamage;
-            while(character.getHealth() > 0 && characterAtIndex.getHealth() > 0){
-                max = character.getDamage();
-                randDamage = (int) (Math.random() * (max - min + 1) + min);
-                characterAtIndex.setHealth(characterAtIndex.getHealth() - randDamage);
-
-                max = characterAtIndex.getDamage();
-                randDamage = (int) (Math.random() * (max - min + 1) + min);
-                character.setHealth(character.getHealth() - randDamage);
-            }
-            System.out.println("The player and a Goblin just battled at " + newPosition.toString());
-            //handles if human dies -> lose the game
-            if((character instanceof Human && character.getHealth() <= 0) ||
-                    (characterAtIndex instanceof Human && characterAtIndex.getHealth() <= 0)){
-                System.out.println("The player has died and you have lost! Game Over!");
-                return "";
-            //handles if dying goblin is moving
-            } else if(character.getHealth() <= 0){
-                itemToInv = ((Goblin)character).getDrop();
-                human = (Human)alterPlayerStats(itemToInv, characterAtIndex);
-            //handles if dying goblin is at the conflicted position
-            } else {
-                itemToInv = ((Goblin)character).getDrop();
-                character.setPositionOnLand(newPosition);
-                human = (Human)alterPlayerStats(itemToInv, character);
-                gridAsArr[Land.posOnLandToIndex(newPosition)] = 'H';
-            }
-
-            inventory = human.getInventory();
-            if(inventory.containsKey(itemToInv)){
-                inventory.replace(itemToInv, inventory.get(itemToInv) + 1);
-            } else {
-                inventory.put(itemToInv, 1);
-            }
-            human.setInventory(inventory);
-            characters.replace(newPosition, human);
-
-            System.out.println("The Goblin died and a random chest has spawned!");
-            newGrid = generateRandomChest(String.valueOf(gridAsArr));
+            newGrid = handleCombatOutcome(character, newPosition, currLandGrid);
         }
-        System.out.println("You now have " + human.getHealth() + " health and " + human.getDamage() + " maximum damage.");
-        if(!inventory.isEmpty()) {
-            System.out.print("Your inventory now contains: ");
-            StringBuilder str = new StringBuilder();
-            for (var invItem : human.getInventory().entrySet()) {
-                str.append(invItem.getValue() + " " + invItem.getKey() + ", ");
-            }
-            System.out.println(str.substring(0, str.length() - 2));
+        if(newGrid.equals("")){
+            return "";
         }
+        System.out.println(printPlayerStatus(human));
 
         return newGrid;
     }
