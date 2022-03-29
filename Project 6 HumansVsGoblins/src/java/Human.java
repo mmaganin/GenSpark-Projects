@@ -22,9 +22,19 @@ public class Human extends GameCharacter{
 
     @Override
     public String toString(){
-        return "Human: \n" +
-                "Health: " + this.getHealth() + ", Damage: " + this.getDamage() + "\n" +
-                "Position: " + (this.getPositionOnLand().getxCoord() == 0 ? this.getPositionOnLand().toString() : "Not on the board yet.");
+        StringBuilder str = new StringBuilder();
+        String output;
+
+        str.append("You have " + this.getHealth() + " health and " + this.getDamage() + " maximum damage.");
+        output = str.toString();
+        if(!inventory.isEmpty()) {
+            str.append("\nYour inventory contains: ");
+            for (var invItem : this.getInventory().entrySet()) {
+                str.append(invItem.getValue() + " " + invItem.getKey() + ", ");
+            }
+            output = str.substring(0, str.length() - 2);
+        }
+        return output;
     }
 
     @Override

@@ -1,11 +1,11 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
+import java.util.*;
 
 public class PlayHumansVsGoblins {
     public Land land;
     public HashMap<GridCoords, String> chests;
     public HashMap<GridCoords, GameCharacter> characters;
+    Iterator<Map.Entry<GridCoords, GameCharacter>> iterator;
+    public StringBuilder moveOutcomeText;
     public static final String[] possibleChestItems =
             {"Gold", "Master Sword", "Band of Regeneration", "AK-47", "Kevlar"};
 
@@ -13,6 +13,7 @@ public class PlayHumansVsGoblins {
         land = new Land();
         chests = new HashMap<>();
         characters = new HashMap<>();
+        moveOutcomeText = new StringBuilder();
     }
 
     //places a chest with drops onto the grid, returns an updated land grid
@@ -41,12 +42,16 @@ public class PlayHumansVsGoblins {
         int posOnLandIndex = Land.posOnLandToIndex(character.getPositionOnLand());
         GridCoords newPosition;
 
+        if(character.getPositionOnLand() == Land.newPosAfterMove(direction, character.getPositionOnLand())){
+            return currLandGrid;
+        }
+
         //checks that goblin cant move to chest space and goblins and humans cant move to other goblin or human spaces
         if(gridAsArr[posOnLandIndex + direction] != character.getMapMarker() &&
                 !(gridAsArr[posOnLandIndex + direction] == 'X' && character instanceof Goblin)){
             gridAsArr[posOnLandIndex] = ' ';
 
-            characters.remove(character.getPositionOnLand());
+            characters.replace(character.getPositionOnLand(), null);
             posOnLandIndex += direction;
             //handles collision if human runs into chest or goblin runs into human
             if(gridAsArr[posOnLandIndex] != ' '){
@@ -57,7 +62,11 @@ public class PlayHumansVsGoblins {
                 newPosition = Land.newPosAfterMove(direction, character.getPositionOnLand());
                 character.setPositionOnLand(newPosition);
 
-                characters.put(newPosition, character);
+                if(characters.containsKey(newPosition)){
+                    characters.replace(newPosition, character);
+                } else {
+                    characters.put(newPosition, character);
+                }
             }
         }
 
@@ -79,9 +88,13 @@ public class PlayHumansVsGoblins {
             inventory.put(itemToInv, 1);
         }
         human.setInventory(inventory);
-        characters.put(newPosition, alterPlayerStats(itemToInv, human));
+        if(characters.containsKey(newPosition)){
+            characters.replace(newPosition, alterPlayerStats(itemToInv, human));
+        } else {
+            characters.put(newPosition, alterPlayerStats(itemToInv, human));
+        }
 
-        System.out.println("You have just picked up " + itemToInv + " from a chest!");
+        moveOutcomeText.append("You have just picked up " + itemToInv + " from a chest!\n");
 
         return String.valueOf(gridAsArr);
     }
@@ -118,7 +131,7 @@ public class PlayHumansVsGoblins {
             randDamage = (int) (Math.random() * (max - min + 1) + min);
             character.setHealth(character.getHealth() - randDamage);
         }
-        System.out.println("The player and a Goblin just battled at " + characterAtIndex.getPositionOnLand());
+        moveOutcomeText.append("The player and a Goblin just battled at " + characterAtIndex.getPositionOnLand() + "\n");
 
         if(character.getHealth() <= 0 && characterAtIndex.getHealth() <= 0){
             return null;
@@ -135,15 +148,15 @@ public class PlayHumansVsGoblins {
         HashMap<String, Integer> inventory;
         Human human;
         char[] gridAsArr = currLandGrid.toCharArray();
+        Goblin goblin = new Goblin();
 
         GameCharacter survivor = handleFindSurvivor(character, characterAtIndex);
         if(survivor == null){
-            return currLandGrid;
+            return "";
         }
 
         //handles if human dies -> lose the game
         if(survivor instanceof Goblin){
-            System.out.println("The player has died and you have lost! Game Over!");
             return "";
             //handles if dying goblin is moving
         } else if(survivor.equals(characterAtIndex)){
@@ -157,7 +170,10 @@ public class PlayHumansVsGoblins {
             gridAsArr[Land.posOnLandToIndex(newPosition)] = 'H';
         }
 
-        //adds necessary items to player inventory, updates characters hashmap, spawns random chest
+        //adds necessary items to player inventory, updates characters hashmap, spawns random chest, spawns new goblin
+        goblin = new Goblin();
+        currLandGrid = placeCharacterRandom(String.valueOf(gridAsArr), goblin);
+
         inventory = human.getInventory();
         if(inventory.containsKey(itemToInv)){
             inventory.replace(itemToInv, inventory.get(itemToInv) + 1);
@@ -167,8 +183,8 @@ public class PlayHumansVsGoblins {
         human.setInventory(inventory);
         characters.replace(newPosition, human);
 
-        System.out.println("The Goblin died and a random chest has spawned!");
-        return generateRandomChest(String.valueOf(gridAsArr));
+        moveOutcomeText.append("The Goblin died and a random chest has spawned!\n");
+        return generateRandomChest(currLandGrid);
     }
 
 
@@ -200,7 +216,7 @@ public class PlayHumansVsGoblins {
         if(newGrid.equals("")){
             return "";
         }
-        System.out.println(printPlayerStatus(human));
+        moveOutcomeText.append(printPlayerStatus(human));
 
         return newGrid;
     }
@@ -252,7 +268,11 @@ public class PlayHumansVsGoblins {
     public String placeCharacterRandom(String currLandGrid, GameCharacter character){
         GridCoords position = land.randomFreePosition(currLandGrid);
         character.setPositionOnLand(position);
-        characters.put(position, character);
+        if(characters.containsKey(position)){
+            characters.replace(position, character);
+        } else {
+            characters.put(position, character);
+        }
 
         char[] gridAsArr = currLandGrid.toCharArray();
         gridAsArr[Land.posOnLandToIndex(position)] = character.getMapMarker();
@@ -267,7 +287,11 @@ public class PlayHumansVsGoblins {
             return currLandGrid;
         }
         character.setPositionOnLand(positionOnLand);
-        characters.put(positionOnLand, character);
+        if(characters.containsKey(positionOnLand)){
+            characters.replace(positionOnLand, character);
+        } else {
+            characters.put(positionOnLand, character);
+        }
 
         char[] landGridArr = currLandGrid.toCharArray();
         landGridArr[gridIndex] = character.getMapMarker();
@@ -275,10 +299,166 @@ public class PlayHumansVsGoblins {
         return String.valueOf(landGridArr);
     }
 
+    public void startGame(){
+        Human player;
+        Goblin goblin;
+        GridCoords playerLocation;
+        Scanner s = new Scanner(System.in);
+        String input = "";
+        String currLandGrid;
+        boolean stillAlive;
+        boolean badMove;
+
+        boolean keepPlaying = true;
+        while(keepPlaying) {
+            keepPlaying = false;
+            player = new Human();
+            goblin = new Goblin();
+            playerLocation = new GridCoords(5, 2);
+            currLandGrid = placeCharacter(Land.initLandGrid, player, playerLocation);
+            currLandGrid = placeCharacterRandom(currLandGrid, goblin);
+            goblin = new Goblin();
+            currLandGrid = placeCharacterRandom(currLandGrid, goblin);
+
+            System.out.println("Humans Vs. Goblins");
+
+            stillAlive = true;
+            while (stillAlive) {
+                System.out.println(currLandGrid);
+                System.out.println("\'H\' = Player, \'G\' = Goblin, \'X\' = Chest");
+                System.out.println();
+                System.out.println(moveOutcomeText.toString().equals("") ? ((Human)characters.get(playerLocation)).toString() : moveOutcomeText);
+                System.out.println();
+                System.out.println("Where would you like to move? (enter N, S, E, W directions, I to not move, or Q to quit)");
+
+                moveOutcomeText = new StringBuilder("");
+                String oldGrid = currLandGrid;
+                badMove = true;
+                while (badMove) {
+                    badMove = false;
+
+                    try {
+                        input = s.nextLine().trim().toLowerCase();
+                        while (!(input.equals("n") || input.equals("s") || input.equals("e") || input.equals("w") || input.equals("q") || input.equals("i"))) {
+                            System.out.println("Please enter only N, S, E, W directions, I to not move, or Q to quit)");
+                            input = s.nextLine().trim().toLowerCase();
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                    player = (Human) characters.get(playerLocation);
+                    switch (input.charAt(0)) {
+                        case 'n':
+                            currLandGrid = changeGridAfterMove(currLandGrid, Land.moveNorth, player);
+                            playerLocation = Land.newPosAfterMove(Land.moveNorth, playerLocation);
+                            break;
+                        case 's':
+                            currLandGrid = changeGridAfterMove(currLandGrid, Land.moveSouth, player);
+                            playerLocation = Land.newPosAfterMove(Land.moveSouth, playerLocation);
+                            break;
+                        case 'e':
+                            currLandGrid = changeGridAfterMove(currLandGrid, Land.moveEast, player);
+                            playerLocation = Land.newPosAfterMove(Land.moveEast, playerLocation);
+                            break;
+                        case 'w':
+                            currLandGrid = changeGridAfterMove(currLandGrid, Land.moveWest, player);
+                            playerLocation = Land.newPosAfterMove(Land.moveWest, playerLocation);
+                            break;
+
+                        case 'q':
+                            System.exit(1);
+                            break;
+                    }
+                    if (currLandGrid.equals("")) {
+                        stillAlive = false;
+                        break;
+                    }
+                    if (oldGrid.equals(currLandGrid) && input.charAt(0) != 'i') {
+                        badMove = true;
+                        System.out.println("Please enter a different, valid input (N, S, E, W directions, I to not move, or Q to quit)");
+                    }
+                }
+
+                if (currLandGrid.equals("")) {
+                    stillAlive = false;
+                    break;
+                }
+                HashMap<GridCoords, GameCharacter> charactersCopy = new HashMap<>(characters);
+                for (var character : charactersCopy.entrySet()) {
+                    if (character.getValue() != null && !(character.getKey().equals(playerLocation))) {
+                        currLandGrid = moveGoblin(currLandGrid, playerLocation, (Goblin) character.getValue());
+                        if (currLandGrid.equals("")) {
+                            stillAlive = false;
+                            break;
+                        }
+                    }
+                }
+            }
+            System.out.println("Your player has died, you have lost the game! Would you like to play again (y or n)");
+            try {
+                input = s.nextLine().trim().toLowerCase();
+                while (!(input.equals("y") || input.equals("n"))) {
+                    System.out.println("Please enter only y or n");
+                    input = s.nextLine().trim().toLowerCase();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            if (input.charAt(0) == 'y') {
+                keepPlaying = true;
+                land = new Land();
+                chests = new HashMap<>();
+                characters = new HashMap<>();
+                moveOutcomeText = new StringBuilder();
+            }
+        }
+        s.close();
+    }
+
+    public String moveGoblin(String currLandGrid, GridCoords playerLocation, Goblin goblin){
+        String newGrid;
+        GridCoords goblinCoords = goblin.getPositionOnLand();
+        int xDiff = playerLocation.getxCoord() - goblinCoords.getxCoord();
+        int yDiff = playerLocation.getyCoord() - goblinCoords.getyCoord();
+        int direction;
+        int alternateDirection = Land.moveNorth;
+        if(Land.newPosAfterMove(Land.moveNorth, goblin.getPositionOnLand()).equals(goblin.getPositionOnLand())){
+            alternateDirection = Land.moveSouth;
+        }
+
+        if(yDiff != 0){
+            if(yDiff > 0){
+                direction = Land.moveSouth;
+            } else {
+                direction = Land.moveNorth;
+            }
+
+            if(xDiff > 0){
+                alternateDirection = Land.moveEast;
+            } else {
+                alternateDirection = Land.moveWest;
+            }
+        } else {
+            if(xDiff > 0){
+                direction = Land.moveEast;
+            } else {
+                direction = Land.moveWest;
+            }
+        }
+
+        //attempts movement in different directions if stuck
+        if((newGrid = changeGridAfterMove(currLandGrid, direction, goblin)).equals(currLandGrid)){
+            newGrid = changeGridAfterMove(currLandGrid, alternateDirection, goblin);
+        }
+        return newGrid;
+    }
+
     public static void main(String[] args) {
         PlayHumansVsGoblins newGame = new PlayHumansVsGoblins();
 
-        System.out.println(newGame.generateRandomChest(Land.initLandGrid));
+        newGame.startGame();
 
     }
 
