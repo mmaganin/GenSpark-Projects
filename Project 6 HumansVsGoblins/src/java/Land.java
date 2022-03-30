@@ -66,6 +66,7 @@ public class Land {
 
         return indexOnGrid;
     }
+
     //calculates the new {x, y} position after a move
     public static GridCoords newPosAfterMove(int direction, GridCoords position){
         GridCoords newPosition = position;
@@ -114,6 +115,7 @@ public class Land {
         return newPosition;
     }
 
+    //calculates a random, unoccupied position in land grid, returns the coords
     public GridCoords randomFreePosition(String currLandGrid){
         int max = 10;
         int min = 1;

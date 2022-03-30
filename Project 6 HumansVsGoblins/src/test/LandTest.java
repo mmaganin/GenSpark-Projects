@@ -68,11 +68,11 @@ class LandTest {
         char[] gridAsArr = samplePopulatedGrid.toCharArray();
 
         //creates random positions until the only unpopulated position is returned 4,6
-        assertEquals(new GridCoords(4,6), land.randomFreePosition(samplePopulatedGrid), "newPosAfterMove Failed");
+        assertEquals(new GridCoords(4,6), land.randomFreePosition(samplePopulatedGrid), "randomFreePosition Failed");
 
         //makes (6, 9) the only free space and tests it
         gridAsArr[Land.posOnLandToIndex(new GridCoords(4,6))] = 'X';
         gridAsArr[Land.posOnLandToIndex(new GridCoords(6,9))] = ' ';
-        assertEquals(new GridCoords(6,9), land.randomFreePosition(String.valueOf(gridAsArr)), "newPosAfterMove Failed");
+        assertEquals(new GridCoords(6,9), land.randomFreePosition(String.valueOf(gridAsArr)), "randomFreePosition Failed");
     }
 }
