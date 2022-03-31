@@ -238,7 +238,7 @@ public class Hangman {
     }
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception{
         Hangman hangman = new Hangman();
         Scanner s = new Scanner(System.in);
         boolean keepPlaying = true;
