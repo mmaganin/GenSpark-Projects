@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="6f5710ad-b1d1-4cfd-a6e9-f034605630f6" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/java/GameCharacter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/java/Goblin.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/java/GridCoords.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/java/Gui.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/java/Human.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/java/Land.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/java/PlayHumansVsGoblins.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/LandTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/PlayHumansVsGoblinsTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Project 6 HumansVsGoblins/out/production/Project 6 HumansVsGoblins/GridCoords.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Project 6 HumansVsGoblins/out/production/Project 6 HumansVsGoblins/GridCoords.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Project 6 HumansVsGoblins/src/java/GridCoords.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Project 6 HumansVsGoblins/src/java/GridCoords.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Project 7 Hangman Reimplemented/out/production/Project 7 Hangman Reimplemented/Hangman.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Project 7 Hangman Reimplemented/out/production/Project 7 Hangman Reimplemented/Hangman.class" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="27CdiTrMoMjX8cc7C9YrkE5g1UO" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="Downloaded.Files.Path.Enabled" value="false" />
+    <property name="Repository.Attach.Annotations" value="false" />
+    <property name="Repository.Attach.JavaDocs" value="false" />
+    <property name="Repository.Attach.Sources" value="false" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+  </component>
+  <component name="RunManager" selected="Application.PlayHumansVsGoblins">
+    <configuration name="Gui" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Gui" />
+      <module name="project 8 HumansVsGoblins GUI" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="PlayHumansVsGoblins" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="PlayHumansVsGoblins" />
+      <module name="project 8 HumansVsGoblins GUI" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.PlayHumansVsGoblins" />
+        <item itemvalue="Application.Gui" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="6f5710ad-b1d1-4cfd-a6e9-f034605630f6" name="Changes" comment="" />
+      <created>1648828129748</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1648828129748</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+</project>

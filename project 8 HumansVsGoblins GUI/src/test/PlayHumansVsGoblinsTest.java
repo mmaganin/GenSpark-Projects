@@ -295,7 +295,7 @@ class PlayHumansVsGoblinsTest {
         String expected = String.valueOf(gridAsArr);
 
         currLandGrid = playHumansVsGoblins.placeCharacter(currLandGrid, player, playerLocation);
-        String actual = playHumansVsGoblins.userInputDirection(currLandGrid, player, scanner);
+        String actual = playHumansVsGoblins.userInputDirection(currLandGrid, player, new Gui());
 
         assertEquals(expected, actual, "userInputDirection Failed");
     }

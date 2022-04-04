@@ -1,4 +1,4 @@
-final class GridCoords {
+public class GridCoords {
     private final Integer xCoord, yCoord;
 
     public GridCoords(int xCoord, int yCoord) {
