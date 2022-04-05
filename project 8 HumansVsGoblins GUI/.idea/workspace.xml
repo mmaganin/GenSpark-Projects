@@ -2,21 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6f5710ad-b1d1-4cfd-a6e9-f034605630f6" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/java/GameCharacter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/java/Goblin.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/java/GridCoords.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/java/Gui.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/java/Human.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/java/Land.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/java/PlayHumansVsGoblins.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/LandTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/PlayHumansVsGoblinsTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Project 6 HumansVsGoblins/out/production/Project 6 HumansVsGoblins/GridCoords.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Project 6 HumansVsGoblins/out/production/Project 6 HumansVsGoblins/GridCoords.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Project 6 HumansVsGoblins/src/java/GridCoords.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Project 6 HumansVsGoblins/src/java/GridCoords.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Project 7 Hangman Reimplemented/out/production/Project 7 Hangman Reimplemented/Hangman.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Project 7 Hangman Reimplemented/out/production/Project 7 Hangman Reimplemented/Hangman.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/GuiTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/project 8 HumansVsGoblins GUI/Goblin.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/project 8 HumansVsGoblins GUI/Goblin.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/project 8 HumansVsGoblins GUI/Gui.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/project 8 HumansVsGoblins GUI/Gui.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/project 8 HumansVsGoblins GUI/Human.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/project 8 HumansVsGoblins GUI/Human.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/project 8 HumansVsGoblins GUI/PlayHumansVsGoblins.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/project 8 HumansVsGoblins GUI/PlayHumansVsGoblins.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/test/project 8 HumansVsGoblins GUI/PlayHumansVsGoblinsTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/test/project 8 HumansVsGoblins GUI/PlayHumansVsGoblinsTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/Goblin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/Goblin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/Gui.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/Gui.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/Human.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/Human.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/PlayHumansVsGoblins.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/PlayHumansVsGoblins.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/PlayHumansVsGoblinsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/PlayHumansVsGoblinsTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,6 +24,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
+        <option value="JUnit5 Test Class" />
       </list>
     </option>
   </component>
@@ -52,18 +50,21 @@
     <property name="Repository.Attach.Sources" value="false" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit5" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
   </component>
+  <component name="RecentsManager">
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="" />
+    </key>
+  </component>
   <component name="RunManager" selected="Application.PlayHumansVsGoblins">
-    <configuration name="Gui" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Gui" />
-      <module name="project 8 HumansVsGoblins GUI" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="PlayHumansVsGoblins" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="PlayHumansVsGoblins" />
       <module name="project 8 HumansVsGoblins GUI" />
@@ -71,10 +72,51 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="GuiTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="project 8 HumansVsGoblins GUI" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="GuiTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="GuiTest.landGridToGuiGrid" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="project 8 HumansVsGoblins GUI" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="GuiTest" />
+      <option name="METHOD_NAME" value="landGridToGuiGrid" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="GuiTest.replaceTextPanel" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="project 8 HumansVsGoblins GUI" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="GuiTest" />
+      <option name="METHOD_NAME" value="replaceTextPanel" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="PlayHumansVsGoblinsTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="project 8 HumansVsGoblins GUI" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="PlayHumansVsGoblinsTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Application.PlayHumansVsGoblins" />
-        <item itemvalue="Application.Gui" />
+        <item itemvalue="JUnit.GuiTest" />
+        <item itemvalue="JUnit.PlayHumansVsGoblinsTest" />
+        <item itemvalue="JUnit.GuiTest.replaceTextPanel" />
+        <item itemvalue="JUnit.GuiTest.landGridToGuiGrid" />
       </list>
     </recent_temporary>
   </component>

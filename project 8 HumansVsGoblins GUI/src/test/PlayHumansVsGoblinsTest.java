@@ -10,7 +10,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class PlayHumansVsGoblinsTest {
     PlayHumansVsGoblins playHumansVsGoblins;
-    static Scanner scanner;
     //populated grid used often during tests
     String samplePopulatedGrid = "" +
             "---------------------\n" +
@@ -34,11 +33,6 @@ class PlayHumansVsGoblinsTest {
             "---------------------\n" +
             "|G|G|G|G|G|G|G|G|G|G|\n" +
             "---------------------\n";
-
-    @BeforeAll
-    static void setUpAll(){
-        scanner = new Scanner(new ByteArrayInputStream("s".getBytes()));
-    }
 
     @BeforeEach
     void setUp() {
@@ -281,28 +275,4 @@ class PlayHumansVsGoblinsTest {
         assertEquals(String.valueOf(gridAsArr), output, "moveGoblin Failed");
     }
 
-    //Tests proper player movement after desired user input
-    @DisplayName("Test userInputDirection")
-    @Test
-    void userInputDirection() {
-        String currLandGrid = Land.initLandGrid;
-        Human player = new Human();
-        GridCoords playerLocation = new GridCoords(5, 2);
-        GridCoords newCoords = new GridCoords(5, 3);
-        char[] gridAsArr = currLandGrid.toCharArray();
-
-        gridAsArr[Land.posOnLandToIndex(newCoords)] = 'H';
-        String expected = String.valueOf(gridAsArr);
-
-        currLandGrid = playHumansVsGoblins.placeCharacter(currLandGrid, player, playerLocation);
-        String actual = playHumansVsGoblins.userInputDirection(currLandGrid, player, new Gui());
-
-        assertEquals(expected, actual, "userInputDirection Failed");
-    }
-
-
-    @AfterAll
-    static void tearDownAll() {
-        scanner.close();
-    }
 }

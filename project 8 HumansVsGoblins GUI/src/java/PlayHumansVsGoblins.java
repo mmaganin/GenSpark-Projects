@@ -320,6 +320,7 @@ public class PlayHumansVsGoblins {
         boolean keepPlaying = true;
         while (keepPlaying) {
             keepPlaying = false;
+            input = "";
             player = new Human();
             goblin = new Goblin();
             currLandGrid = placeCharacter(Land.initLandGrid, player, playerLocation);
@@ -336,7 +337,6 @@ public class PlayHumansVsGoblins {
             while(!(input.equals("y") || input.equals("n"))){
                 input = gui.getUserInput();
             }
-
             //reset instance variables if player wants to replay
             if (input.equals("y")) {
                 keepPlaying = true;
@@ -345,6 +345,8 @@ public class PlayHumansVsGoblins {
                 characters = new HashMap<>();
                 moveOutcomeText = new StringBuilder();
                 playerLocation = new GridCoords(5, 2);
+            } else {
+                System.exit(1);
             }
         }
     }
@@ -362,7 +364,7 @@ public class PlayHumansVsGoblins {
             newGameText.append("Where would you like to move? (enter N, S, E, W directions, I to not move, or Q to quit)\n");
 
             gui.replaceTextPanel(newGameText.toString(), false);
-            gui.updateJFrame();
+            gui.makeJFrameVisible();
 
             moveOutcomeText = new StringBuilder("");
 

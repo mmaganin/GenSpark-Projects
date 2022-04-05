@@ -1,3 +1,8 @@
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+
 public class Goblin extends GameCharacter{
     private String drop;
     public static final String[] possibleDrops =
@@ -17,7 +22,6 @@ public class Goblin extends GameCharacter{
         int min = 0;
         int randNum = (int) (Math.random() * (max - min + 1) + min);
         drop = possibleDrops[randNum];
-
 
         this.setPositionOnLand(new GridCoords(0,0));
         this.setMapMarker('G');
