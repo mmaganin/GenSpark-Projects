@@ -2,18 +2,22 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6f5710ad-b1d1-4cfd-a6e9-f034605630f6" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/test/GuiTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SpelAspectAssignment/src/main/java/org/example/App.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SpelAspectAssignment/src/main/java/org/example/AppConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SpelAspectAssignment/src/main/java/org/example/Student.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SpelAspectAssignment/src/test/java/org/example/AppTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SpringAssignment1/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SpringAssignment1/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SpringAssignment1/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SpringAssignment1/.idea/jarRepositories.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SpringAssignment1/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SpringAssignment1/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SpringAssignment1/src/main/java/org/example/Address.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SpringAssignment1/src/main/java/org/example/Phone.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SpringAssignment1/src/main/java/org/example/Student.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SpringAssignment1/src/main/resources/StudentInfo.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SpringAssignment2/src/main/java/org/example/AppConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/project 8 HumansVsGoblins GUI/Goblin.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/project 8 HumansVsGoblins GUI/Goblin.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/project 8 HumansVsGoblins GUI/Gui.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/project 8 HumansVsGoblins GUI/Gui.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/project 8 HumansVsGoblins GUI/Human.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/project 8 HumansVsGoblins GUI/Human.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/project 8 HumansVsGoblins GUI/PlayHumansVsGoblins.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/project 8 HumansVsGoblins GUI/PlayHumansVsGoblins.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/test/project 8 HumansVsGoblins GUI/PlayHumansVsGoblinsTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/test/project 8 HumansVsGoblins GUI/PlayHumansVsGoblinsTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/java/Goblin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/Goblin.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/java/Gui.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/Gui.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/java/Human.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/Human.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/java/PlayHumansVsGoblins.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/PlayHumansVsGoblins.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/PlayHumansVsGoblinsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/PlayHumansVsGoblinsTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
