@@ -11,6 +11,7 @@ public class Employee {
     private int id;
     private String name;
     private String department;
+    @Column(name = "hourly_wage")
     private int hourlyWage;
     private String company;
     private String email;
@@ -18,8 +19,7 @@ public class Employee {
     public Employee() {
     }
 
-    public Employee(int id, String name, String department, int hourlyWage, String company, String email) {
-        this.id = id;
+    public Employee(String name, String department, int hourlyWage, String company, String email) {
         this.name = name;
         this.department = department;
         this.hourlyWage = hourlyWage;

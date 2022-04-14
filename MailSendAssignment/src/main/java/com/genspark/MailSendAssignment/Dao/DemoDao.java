@@ -12,14 +12,13 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository
-public class DemoDao implements DemoDaoFrame{
+public class DemoDao{
     private Session session;
     private Transaction t;
     private SessionFactory sessionFactory;
 
     public DemoDao(){
-        sessionFactory = MailSendAssignmentApplication.getSessionFactory();
+        //sessionFactory = MailSendAssignmentApplication.getSessionFactory();
     }
 
     public void startTransaction(){
@@ -32,7 +31,6 @@ public class DemoDao implements DemoDaoFrame{
         session.close();
     }
 
-    @Override
     public List<Employee> getEmployees() {
         startTransaction();
 
@@ -43,7 +41,6 @@ public class DemoDao implements DemoDaoFrame{
         return empList;
     }
 
-    @Override
     public List<Employee> getEmployee(int id) {
         startTransaction();
 
@@ -55,7 +52,6 @@ public class DemoDao implements DemoDaoFrame{
         return empList;
     }
 
-    @Override
     public Employee addEmployee(Employee employee) {
         startTransaction();
         session.save(employee);
@@ -64,7 +60,6 @@ public class DemoDao implements DemoDaoFrame{
         return employee;
     }
 
-    @Override
     public int updateEmployee(Employee employee) {
         startTransaction();
         Query query = session.createQuery("update Employee " +
@@ -82,7 +77,6 @@ public class DemoDao implements DemoDaoFrame{
         return result;
     }
 
-    @Override
     public int deleteEmployee(int id) {
         startTransaction();
         Query query = session.createQuery("delete from Employee where id=:id");

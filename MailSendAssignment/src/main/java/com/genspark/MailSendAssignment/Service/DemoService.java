@@ -10,9 +10,10 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
-public class DemoService implements DemoServiceFrame{
+public class DemoService implements DemoServiceFrame {
     @Autowired
     private DemoDaoFrame empDb;
 
@@ -20,7 +21,7 @@ public class DemoService implements DemoServiceFrame{
     private JavaMailSender javaMailSender;
 
     public void sendEmail(String toEmail, String subject, String body) {
-        SimpleMailMessage message =  new SimpleMailMessage();
+        SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom("michaelmags33@gmail.com");
         message.setTo(toEmail);
         message.setSubject(subject);
@@ -32,50 +33,47 @@ public class DemoService implements DemoServiceFrame{
 
     @Override
     public List<Employee> getEmployees() {
-        return empDb.getEmployees();
+        return empDb.findAll();
     }
 
     @Override
     public Employee getEmployee(int id) {
-        Employee emp = null;
-        List<Employee> emps = empDb.getEmployee(id);
-
-        if(emps.size() == 1){
-            emp = emps.get(0);
+        Optional<Employee> emp = empDb.findById(id);
+        Employee e = null;
+        if (emp.isPresent()) {
+            e = emp.get();
+        } else {
+            throw new RuntimeException("Employee not found");
         }
 
-        return emp;
+        return e;
     }
 
+    //POST
     @Override
     public Employee addEmployee(Employee employee) {
         sendEmail(employee.getEmail(), "Registered in Database",
                 "This email is associated with a new employee in the database");
-        return empDb.addEmployee(employee);
+        return empDb.save(employee);
     }
 
+    //PUT
     @Override
     public Employee updateEmployee(Employee employee) {
-        int result = empDb.updateEmployee(employee);
+        Employee e = empDb.save(employee);
 
-        if(result == 1){
-            return employee;
-        }
-
-        return null;
+        return e;
     }
 
     @Override
     public String deleteEmployee(int id) {
         Employee employee = getEmployee(id);
-        int result = empDb.deleteEmployee(id);
+        empDb.deleteById(id);
 
-        if(result == 1){
-            sendEmail("michaelmags33@gmail.com", "Removed employee from Database",
-                    "The employee named " + employee.getName() + " associated with email "  + employee.getEmail() + " has been removed from the database");
-            return "Delete Success";
-        }
+        sendEmail("michaelmags33@gmail.com", "Removed employee from Database",
+                "The employee named " + employee.getName() + " associated with email " + employee.getEmail() + " has been removed from the database");
+        return "Delete Success";
 
-        return "Delete Failed";
+
     }
 }

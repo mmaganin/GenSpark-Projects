@@ -31,30 +31,6 @@ public class MailSendAssignmentApplication {
 		MailSendAssignmentApplication.setSessionFactory(cfg.buildSessionFactory());
 		SpringApplication.run(MailSendAssignmentApplication.class, args);
 
-//		Configuration cfg = new Configuration();
-//		cfg.configure("hibernate.cfg.xml");
-//		SessionFactory factory = cfg.buildSessionFactory();
-//
-//		Session session = factory.openSession();
-//		Transaction t = session.beginTransaction();
-//
-//		Employee e1 = new Employee(0, "Michael", "Java training", 10, "Genspark");
-//		session.save(e1);
-//
-//		Query query = session.createQuery("from Employee where department=:dept");
-//		query.setParameter("dept", "Java training");
-//
-//		List<Employee> empList = query.list();
-//		for(var emp : empList){
-//			System.out.println("SUCCESS\n" + emp);
-//		}
-//
-//
-//		t.commit();
-//		System.out.println("retrieved successfully");
-//		session.close();
-//		factory.close();
-
 	}
 
 }
