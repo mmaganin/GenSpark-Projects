@@ -1,0 +1,41 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+h1 {
+    font-size: 2.5em;
+    margin: 0;
+}
+
+.card {
+    background: #7da6f1;
+    border-radius: 10px;
+    padding: 25px;
+    width: 400px;
+    display: inline-flex;
+    flex-direction: column;
+}
+
+form {
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    height: auto
+}
+
+label {
+    font-size: 1.5em;
+}
+
+input {
+    height: 35px;
+    font-size: 1.2em;
+}
+
+input.submit {
+    height: 45px;
+}
